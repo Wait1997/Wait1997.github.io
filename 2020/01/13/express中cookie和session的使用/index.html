@@ -5,15 +5,23 @@
   
 
   
-  <title>Hexo</title>
+  <title>express中cookie和session的使用 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="1.Cookie 和 Session​       会话管理：客户端和服务端通信过程中的数据是如何管理的 ​       会话管理的技术：数据存在客户端  Cookie ​                                      数据存在服务端 Session ​       Cookie: http请求是无状态的。也就是说即使第一次和服务器连接后并且登录成功后，第二次请求服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="express中cookie和session的使用">
+<meta property="og:url" content="http://yoursite.com/2020/01/13/express%E4%B8%ADcookie%E5%92%8Csession%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.Cookie 和 Session​       会话管理：客户端和服务端通信过程中的数据是如何管理的 ​       会话管理的技术：数据存在客户端  Cookie ​                                      数据存在服务端 Session ​       Cookie: http请求是无状态的。也就是说即使第一次和服务器连接后并且登录成功后，第二次请求服务器">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/express%E4%B8%ADcookie%E5%92%8Csession%E7%9A%84%E4%BD%BF%E7%94%A8/image/cookie/%E5%9B%BE%E7%89%871.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/express%E4%B8%ADcookie%E5%92%8Csession%E7%9A%84%E4%BD%BF%E7%94%A8/image/cookie/%E5%9B%BE%E7%89%872.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/13/express%E4%B8%ADcookie%E5%92%8Csession%E7%9A%84%E4%BD%BF%E7%94%A8/image/cookie/%E5%9B%BE%E7%89%873.png">
+<meta property="article:published_time" content="2020-01-13T08:00:19.952Z">
+<meta property="article:modified_time" content="2019-10-18T15:02:48.060Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/01/13/express%E4%B8%ADcookie%E5%92%8Csession%E7%9A%84%E4%BD%BF%E7%94%A8/image/cookie/%E5%9B%BE%E7%89%871.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -62,58 +70,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-Node中app.use中间件" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/13/Node%E4%B8%ADapp.use%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="article-date">
-  <time datetime="2020-01-13T08:00:19.963Z" itemprop="datePublished">2020-01-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/13/Node%E4%B8%ADapp.use%E4%B8%AD%E9%97%B4%E4%BB%B6/">Node中app.use中间件</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-Express中路由和中间件"><a href="#1-Express中路由和中间件" class="headerlink" title="1. Express中路由和中间件"></a>1. Express中路由和中间件</h3><h6 id="路由：就是如何处理HTTP请求中的路径部分"><a href="#路由：就是如何处理HTTP请求中的路径部分" class="headerlink" title="路由：就是如何处理HTTP请求中的路径部分"></a>路由：就是如何处理HTTP请求中的路径部分</h6><h6 id="中间件：就是在收到请求后和发送响应之前这个阶段执行的一些函数"><a href="#中间件：就是在收到请求后和发送响应之前这个阶段执行的一些函数" class="headerlink" title="中间件：就是在收到请求后和发送响应之前这个阶段执行的一些函数"></a>中间件：就是在收到请求后和发送响应之前这个阶段执行的一些函数</h6><h5 id="1-1-应用及中间件"><a href="#1-1-应用及中间件" class="headerlink" title="1.1 应用及中间件"></a>1.1 应用及中间件</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// next方法的作用就是将请求传递到下一个中间件</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  当请求进来，会从第一个中间件开始进行匹配</span></span><br><span class="line"><span class="comment">     如果匹配，则进来</span></span><br><span class="line"><span class="comment">     如果请求进入中间件之后，没有调用 next 则代码会停在当前中间件</span></span><br><span class="line"><span class="comment">     如果调用了 next 则继续向后找到第一个匹配的中间件</span></span><br><span class="line"><span class="comment">     如果不匹配，则继续判断匹配下一个中间件</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">// 不关心请求路径的请求</span></span><br><span class="line"><span class="comment">// 不管以什么路径请求只要有next()传递</span></span><br><span class="line">app.use(<span class="function">(<span class="params">req,res,next</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'1'</span>) <span class="comment">// 1</span></span><br><span class="line">    next()</span><br><span class="line">&#125;)</span><br><span class="line">app.use(<span class="function">(<span class="params">req,res,next</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'2'</span>)  <span class="comment">// 2</span></span><br><span class="line">    next()</span><br><span class="line">&#125;)</span><br><span class="line">app.use(<span class="function">(<span class="params">req,res.next</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'3'</span>)  <span class="comment">// 3</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 关心请求路径的请求</span></span><br><span class="line">app.use(<span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'1'</span>)</span><br><span class="line">  next()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(<span class="string">'/b'</span>, (req, res, next) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'b'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以 /a 开头的路径中间件</span></span><br><span class="line">app.use(<span class="string">'/a'</span>, (req, res, next) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'a'</span>)</span><br><span class="line">  next()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(<span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'2'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当在浏览器中以 /a 开头的请求时，会输出 1 a 2</span></span><br><span class="line"><span class="comment">// 当在浏览器中以 /b 开头的请求时，会输出 1 b,这里不会输出 2 因为当请求/b开头的请求后没有next()方法传递就会停留在那个请求中</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="1-2-错误处理中间件"><a href="#1-2-错误处理中间件" class="headerlink" title="1.2 错误处理中间件"></a>1.2 错误处理中间件</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">app.use(<span class="string">'/user'</span>,(req,res,next) =&gt; &#123;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="built_in">console</span>.log(has error)</span><br><span class="line">       next()</span><br><span class="line">   &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">       <span class="built_in">console</span>.log(<span class="string">'error'</span>)</span><br><span class="line">       next(err)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 全局错误处理中间件</span></span><br><span class="line">app.use(<span class="function">(<span class="params">err,req,res,next</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err.stack)</span><br><span class="line">    res.status(<span class="number">500</span>).send(<span class="string">'error message'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/a'</span>,(req,res,next) =&gt; &#123;</span><br><span class="line">  fs.readFile(path.join(__dirname,<span class="string">'./datas.txt'</span>),<span class="string">'utf8'</span>,(err,data) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="keyword">return</span> next(err)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(data)</span><br><span class="line">    next()</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/a'</span>, (req,res,next) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'/a'</span>)</span><br><span class="line">  res.send(<span class="string">'/a'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当不匹配任何请求路径时 会进去此错误处理</span></span><br><span class="line">app.use(<span class="function">(<span class="params">req,res,next</span>) =&gt;</span> &#123;</span><br><span class="line">  res.send(<span class="string">'404 not Found'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 全局错误处理中间件</span></span><br><span class="line">app.use(<span class="function">(<span class="params">err,req,res,next</span>) =&gt;</span> &#123;</span><br><span class="line">  res.status(<span class="number">500</span>).send(err.message)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'running...'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h5 id="1-3-express中的router"><a href="#1-3-express中的router" class="headerlink" title="1.3 express中的router"></a>1.3 express中的router</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//app.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> public = <span class="built_in">require</span>(<span class="string">'./router/public'</span>)</span><br><span class="line"><span class="keyword">const</span> user = <span class="built_in">require</span>(<span class="string">'./router/user'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line"></span><br><span class="line">app.use(<span class="string">'/public'</span>, public) <span class="comment">// 当请求以/public开头的路径时才会进来</span></span><br><span class="line"></span><br><span class="line">app.use(<span class="string">'/user'</span>, user) <span class="comment">// 当请求以/uer开头的路径时才会进来</span></span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>,() =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'running...'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// router</span></span><br><span class="line"><span class="comment">// 1.user.js</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">const</span> router = express.Router()</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/a'</span>, (req,res) =&gt; &#123;</span><br><span class="line">  res.send(<span class="string">'hello node'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = router</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2.public.js</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">const</span> router = express.Router()</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/b'</span>, (req,res) =&gt; &#123;</span><br><span class="line">  res.send(<span class="string">'hello world'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = router</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>app.router() 要挂载在所有第三方中间件的后面，因为前面配置的中间件是app.router()中请求处理函数的依赖</strong></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/01/13/Node%E4%B8%ADapp.use%E4%B8%AD%E9%97%B4%E4%BB%B6/" data-id="ck5c5rlgd0000o8ue85um3kqk" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-express中cookie和session的使用" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-express中cookie和session的使用" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/01/13/express%E4%B8%ADcookie%E5%92%8Csession%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-date">
   <time datetime="2020-01-13T08:00:19.952Z" itemprop="datePublished">2020-01-13</time>
@@ -126,8 +83,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/13/express%E4%B8%ADcookie%E5%92%8Csession%E7%9A%84%E4%BD%BF%E7%94%A8/">express中cookie和session的使用</a>
+    <h1 class="article-title" itemprop="name">
+      express中cookie和session的使用
     </h1>
   
 
@@ -175,96 +132,28 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-个人博客重新搭建" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/13/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%96%B0%E6%90%AD%E5%BB%BA/" class="article-date">
-  <time datetime="2020-01-13T07:53:22.000Z" itemprop="datePublished">2020-01-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2020/01/13/Node%E4%B8%ADapp.use%E4%B8%AD%E9%97%B4%E4%BB%B6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/13/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%96%B0%E6%90%AD%E5%BB%BA/">个人博客重新搭建</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
+          Node中app.use中间件
         
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/01/13/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%96%B0%E6%90%AD%E5%BB%BA/" data-id="ck5c5rlgr0002o8uegx5ac9nn" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
+      </div>
+    </a>
+  
+  
+    <a href="/2020/01/13/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E9%87%8D%E6%96%B0%E6%90%AD%E5%BB%BA/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">个人博客重新搭建</div>
+    </a>
+  
+</nav>
+
   
 </article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/01/13/hello-world/" class="article-date">
-  <time datetime="2020-01-13T06:57:33.480Z" itemprop="datePublished">2020-01-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/13/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/01/13/hello-world/" data-id="ck5c5rlgn0001o8uebc4424n4" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
