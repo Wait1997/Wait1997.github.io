@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>React学习—开发技巧</title><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><meta http-equiv="X-UA-Compatible" content="IE=Edge，chrome=1"><meta name="description"><meta name="keywords"><meta name="author" content="xiaoxiong"><link rel="short icon" href="/images/favicon.png"><link rel="icon" href="/images/favicon.png"><!--[if lt IE 9]>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Vue学习—防抖节流的使用</title><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><meta http-equiv="X-UA-Compatible" content="IE=Edge，chrome=1"><meta name="description"><meta name="keywords"><meta name="author" content="xiaoxiong"><link rel="short icon" href="/images/favicon.png"><link rel="icon" href="/images/favicon.png"><!--[if lt IE 9]>
 <script src="/js/modernizr.js"></script>
 <![endif]-->
 <link rel="stylesheet" href="/css/iconfont.css">
@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="/css/index.css?v=202002061908.css">
 <link rel="stylesheet" href="/css/info.css?v=202002061908.css">
 <link href="https://cdn.bootcss.com/highlight.js/9.15.9/styles/github.min.css" rel="stylesheet"><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Wait1997" type="application/atom+xml">
-</head><body><header id="header" class="header-navigation"><nav><div class="logo"><a href="http://yoursite.com">Wait1997</a></div><h2 id="mnavh"><span class="navicon"></span></h2><ul id="starlist"><li><a href="/">首页</a></li><li><a href="/time.html">时间轴</a></li></ul><div class="searchbox"><div id="search_bar" class="search_bar"><input id="keyboard" placeholder="想搜点什么呢.." type="text" name="keyboard" autocomplete="off" class="input"><p class="search_ico"><span></span></p></div></div></nav></header><article><main><div class="con_warp"><div class="infosbox"><div class="newsview"><h3 class="news_title">React学习—开发技巧</h3><div class="bloginfo"><ul><li class="author">作者：<a href="/">xiaoxiong</a></li><li class="lmname"><a href="/"></a></li><li class="timer">时间：2020-02-05 13:44:40</li><li class="view"><span id="busuanzi_value_page_pv">99</span><span>次访问</span></li></ul></div><div class="tags"></div><div class="news_con"></div></div><div class="nextinfo"><p>上一篇：<a href="/2020/02/05/JavaScript%E2%80%94%E6%95%B0%E7%BB%84%E6%96%B9%E6%B3%95%E5%8F%8A%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/">JavaScript—数组方法及数组去重</a></p><p>下一篇：<a href="/2020/02/05/React%E5%AD%A6%E4%B9%A0%E2%80%94%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%961/">React学习—性能优化1</a></p></div><div class="news_pl"><div id="comment_container"></div>
+</head><body><header id="header" class="header-navigation"><nav><div class="logo"><a href="http://yoursite.com">Wait1997</a></div><h2 id="mnavh"><span class="navicon"></span></h2><ul id="starlist"><li><a href="/">首页</a></li><li><a href="/time.html">时间轴</a></li></ul><div class="searchbox"><div id="search_bar" class="search_bar"><input id="keyboard" placeholder="想搜点什么呢.." type="text" name="keyboard" autocomplete="off" class="input"><p class="search_ico"><span></span></p></div></div></nav></header><article><main><div class="con_warp"><div class="infosbox"><div class="newsview"><h3 class="news_title">Vue学习—防抖节流的使用</h3><div class="bloginfo"><ul><li class="author">作者：<a href="/">xiaoxiong</a></li><li class="lmname"><a href="/"></a></li><li class="timer">时间：2020-02-06 14:30:12</li><li class="view"><span id="busuanzi_value_page_pv">99</span><span>次访问</span></li></ul></div><div class="tags"></div><div class="news_con"></div></div><div class="nextinfo"><p>上一篇：<a href="/2020/02/06/ES6%E2%80%94Set%E5%92%8CMap%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8A/">ES6—Set和Map数据结构上</a></p><p>下一篇：<a href="/2020/02/06/JavaScript%E2%80%94%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D/">JavaScript—深浅拷贝</a></p></div><div class="news_pl"><div id="comment_container"></div>
 <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
 
 <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
@@ -18,7 +18,7 @@
     repo: 'https://github.com/Wait1997',
     owner: 'xiaoxiong',
     admin: ['xiaoxiong'],
-    id: md5("2020/02/05/React学习—开发技巧/"),      // Ensure uniqueness and length less than 50
+    id: md5("2020/02/06/Vue学习—防抖节流的使用/"),      // Ensure uniqueness and length less than 50
     distractionFreeMode: true  // Facebook-like distraction free mode
 })
 gitalk.render('comment_container')</script></div></div></div></main><aside class="r_box"><div class="card box"><h2>我的名片</h2><div class="box_con"><p>网名：Wait1997</p>
