@@ -3,8 +3,8 @@
 <![endif]-->
 <link rel="stylesheet" href="/css/iconfont.css">
 
-<link rel="stylesheet" href="/css/index.css?v=202002072243.css">
-<link rel="stylesheet" href="/css/info.css?v=202002072243.css">
+<link rel="stylesheet" href="/css/index.css?v=202002121147.css">
+<link rel="stylesheet" href="/css/info.css?v=202002121147.css">
 <link href="https://cdn.bootcss.com/highlight.js/9.15.9/styles/github.min.css" rel="stylesheet"><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Wait1997" type="application/atom+xml">
 </head><body><header id="header" class="header-navigation"><nav><div class="logo"><a href="http://yoursite.com">Wait1997</a></div><h2 id="mnavh"><span class="navicon"></span></h2><ul id="starlist"><li><a href="/">首页</a></li><li><a href="/time.html">时间轴</a></li></ul><div class="searchbox"><div id="search_bar" class="search_bar"><input id="keyboard" placeholder="想搜点什么呢.." type="text" name="keyboard" autocomplete="off" class="input"><p class="search_ico"><span></span></p></div></div></nav></header><article><main><div class="con_warp"><div class="infosbox"><div class="newsview"><h3 class="news_title">ES6—Iterator的理解</h3><div class="bloginfo"><ul><li class="author">作者：<a href="/">xiaoxiong</a></li><li class="lmname"><a href="/"></a></li><li class="timer">时间：2020-02-06 19:11:47</li><li class="view"><span id="busuanzi_value_page_pv">99</span><span>次访问</span></li></ul></div><div class="tags"></div><div class="news_con"><h3 id="ES6—Iterator的理解"><a href="#ES6—Iterator的理解" class="headerlink" title="ES6—Iterator的理解"></a>ES6—<code>Iterator</code>的理解</h3><blockquote>
 <p><code>Iterator</code>可以说是ES6内相当重大的一个特性</p>
@@ -83,7 +83,7 @@
 </li>
 <li><p><code>arguments</code>类数组</p>
 <p>函数内的<code>arguments</code> 是一个类数组，他也支持 <code>for of</code>，因为他内部也部署了<code>Iterator</code> 接口</p>
-<p>我们都知道对象是默认没有部署这个接口的，所以<code>arguments</code>这个属性没有在原型上，而在在对象自身的属性上</p>
+<p>我们都知道对象是默认没有部署这个接口的，所以<code>arguments</code>这个属性没有在原型上，而在对象自身的属性上</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="keyword">const</span> obj = <span class="built_in">arguments</span>[<span class="built_in">Symbol</span>.iterator](); <span class="comment">// 得到可迭代对象</span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">arguments</span>.hasOwnProperty(<span class="built_in">Symbol</span>.iterator)); <span class="comment">// true</span></span><br><span class="line">   <span class="built_in">console</span>.log(<span class="built_in">arguments</span>); <span class="comment">// [0, 1, 3]</span></span><br><span class="line">   <span class="built_in">console</span>.log(obj.next()); <span class="comment">// &#123;value: 0, done: false&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
 
 <p>总结来说，已默认部署 Iterator 接口的对象主要包括数组、字符串、Set、Map 、类似数组的对象（比如arguments对象、DOM NodeList 对象）</p>
@@ -163,6 +163,6 @@ gitalk.render('comment_container')</script></div></div></div></main><aside class
 <script src="/js/scrollreveal.js"></script>
 <script src="/js/hc-sticky.js"></script>
 <script src="/js/canvas-nest.js" type="text/javascript" color="47,135,193" opacity="0.7" zIndex="-2" count="199"></script><script src="https://cdn.bootcss.com/highlight.js/9.15.9/highlight.min.js"></script><script src="https://cdn.bootcss.com/highlight.js/9.15.9/languages/java.min.js"></script><script src="https://cdn.bootcss.com/highlight.js/9.15.9/languages/javascript.min.js"></script><script type="text/javascript">hljs.initHighlightingOnLoad();</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<script src="/js/common.js?v=202002072243.js"></script>
-<script src="/js/index.js?v=202002072243.js"></script>
+<script src="/js/common.js?v=202002121147.js"></script>
+<script src="/js/index.js?v=202002121147.js"></script>
 </body></html>
